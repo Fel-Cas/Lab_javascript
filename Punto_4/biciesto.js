@@ -1,11 +1,6 @@
 anoBiciesto=(ano)=>{
-    if((ano%4==0)&&(ano%100!=0)){
-       return true; 
-    }
-    if((ano%100==0)&&(ano%400==0)){
-         return true;
-    }
-    return false;
+    respuesta=(((ano%4==0)&&(ano%100!=0)||(ano%100==0)&&(ano%400==0))?true:false);
+    return respuesta;
 }
 
 let boton=document.getElementById('boton');
