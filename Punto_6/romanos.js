@@ -1,35 +1,41 @@
 romanNumbers=(numero)=>{
     let letras=['I','V','X','L','C','D','M'];// Número romanos
     let valores=[1,5,10,50,100,500,1000]// valor que representan
-
-    let cantidad,letra,resultado=[],posicion,letraRespuesta,aux;
-
-    for(let i=6;i>=0;i--){
-        letra=letras[i];
-        cantidad=valores[i];
-        if(numero>=cantidad){
-            let n=Math.floor(numero/cantidad);
-            numero-=n*cantidad;
-            if(n<4){//No pueden haber mas de tres letras repetidas consecutivamente
+    let i=6,letra,respuesta=[] ,valor;
+    while(i>=0){
+        if(numero>=valores[i]){ 
+            valor=valores[i];
+            letra=letras[i];
+            let n=Math.floor(numero/valor);
+            numero-=n*valor;
+            if(n<4){
                 while(n>0){
-                    resultado.push(letra);//Agregamos las letras al resultado
+                    respuesta.push(letra);
                     n--;
                 }
             }else{
-                letraRespuesta=resultado.pop();//extraemos el último valor que hay en el array
-                //Calculamos la posición de la letra siguiente
-                posicion=(letraRespuesta ? letras.indexOf(letraRespuesta):i)+1;
-                //Concatenamos la letra actual con la siguiente(se hace la resta)
-                aux=letra+letras[posicion];
-                //Agruegamos el valor
-                resultado.push(aux);
-            }
-
-        }else{
-            resultado.push('');
+                tresSeguidos(letra,letras,respuesta);
+            }   
         }
-    }
-    return resultado.join('');
+        i--;
+        }
+    return respuesta.join('');
 }
 
-console.log(romanNumbers(44));
+tresSeguidos=(letra,letras,respuesta)=>{
+    let posicion,ultimaLetra;
+    if(respuesta==0){
+        posicion=letras.indexOf(letra)+1;
+    }else{
+        ultimaLetra=respuesta.pop();
+        posicion=(Math.abs(letras.indexOf(letra)-letras.indexOf(ultimaLetra))==1?letras.indexOf(ultimaLetra):letras.indexOf(letra))+1;
+        if(Math.abs(letras.indexOf(letra)-letras.indexOf(ultimaLetra))>1){
+            respuesta.push(ultimaLetra);
+        }
+    }
+    
+    respuesta.push(letra);
+    respuesta.push(letras[posicion]);
+}
+
+console.log(romanNumbers(4));
