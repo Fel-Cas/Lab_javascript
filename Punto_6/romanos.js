@@ -38,4 +38,15 @@ tresSeguidos=(letra,letras,respuesta)=>{
     respuesta.push(letras[posicion]);
 }
 
-console.log(romanNumbers(4));
+let boton=document.getElementById('boton');
+boton.addEventListener('click',()=>{  
+    let entrada=document.getElementById('numero').value;
+    let valor=parseInt(entrada);
+    let res=document.getElementById('respuesta');
+    let numeroConvertido=romanNumbers(valor);
+    let mensaje=`El número ${valor} en romano es ${numeroConvertido}`;
+    console.log(mensaje);
+    res.textContent=mensaje;
+
+
+});
